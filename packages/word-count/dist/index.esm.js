@@ -1,5 +1,5 @@
-const NUM = /^\d+$/g;
-const WORD = /[\w']+/gi;
+import { frequentWords } from '@livre/frequent-words';
+import { WORD, NUM } from '@livre/enum-regexes';
 
 const WordCount = ({
   excludes,
@@ -11,7 +11,7 @@ const WordCount = ({
 const wordCount = function (contents) {
   var _this$excludes;
 
-  const excludes = (_this$excludes = this === null || this === void 0 ? void 0 : this.excludes) !== null && _this$excludes !== void 0 ? _this$excludes : [];
+  const excludes = (_this$excludes = this === null || this === void 0 ? void 0 : this.excludes) !== null && _this$excludes !== void 0 ? _this$excludes : frequentWords;
   const top = this === null || this === void 0 ? void 0 : this.top;
   const counter = {};
   let ms, wd;
