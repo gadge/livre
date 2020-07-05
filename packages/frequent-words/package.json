@@ -1,0 +1,38 @@
+{
+  "name": "@livre/frequent-words",
+  "version": "0.0.0",
+  "description": "frequent words",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "pub": "npm publish",
+    "test": "node -r @babel/register test/test.index.js"
+  },
+  "dependencies": {
+    "@vect/vector-init": "^0.2.5",
+    "@vect/vector-merge": "^0.2.5"
+  },
+  "devDependencies": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoyeungw/livre.git"
+  },
+  "keywords": [
+    "livre",
+    "frequent-words",
+    "word-frequency"
+  ],
+  "author": "Hoyeung Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hoyeungw/livre"
+  },
+  "homepage": "https://github.com/hoyeungw/livre#readme"
+}

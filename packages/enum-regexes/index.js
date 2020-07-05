@@ -1,0 +1,1 @@
+export { NUM, WORD, regexes } from './resources/regexes'
