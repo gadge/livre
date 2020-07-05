@@ -1,5 +1,5 @@
-import { frequentWords } from '@livre/frequent-words'
 import { NUM, WORD }     from '@livre/enum-regexes'
+import { frequentWords } from '@livre/frequent-words'
 
 export const WordCount = ({ excludes, top }) => wordCount.bind({ excludes, top })
 

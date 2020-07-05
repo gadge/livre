@@ -9,26 +9,28 @@ import rename                 from 'gulp-rename'
 import { determineBookName }  from './functions/determineBookName'
 import { extractAuthorTitle } from './functions/extractAuthorTitle'
 
-const clean = function () { return del(['static/booksRenamed']) }
+const SRC = 'static/source'
+const DEST = 'static/target'
+const clean = function () { return del([DEST]) }
 
 let index = 0
 
 export const task = function () {
   return gulp
-    .src('static/booksSource/*.txt')
+    .src(SRC + '/*.txt')
     .pipe(rename(function (path, file) {
       const { author, title } = file.contents |> extractAuthorTitle |> determineBookName
-      Xr(time())[ros(author)](ros(title)) |> says['#'].br(index++)
+      Xr(time()).br(path.basename).p('->')[ros(author)](ros(title)) |> says['#'].br(index++)
       return {
         dirname: path.dirname,
         basename: tapDot(author, title),
         extname: '.txt'
       }
     }))
-    .pipe(gulp.dest('static/booksRenamed'))
+    .pipe(gulp.dest(DEST))
 }
 
-export const replaceBookNames = gulp.series(
+export const renameBooks = gulp.series(
   clean,
   task
 )
