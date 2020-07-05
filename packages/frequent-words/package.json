@@ -1,6 +1,6 @@
 {
   "name": "@livre/frequent-words",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "frequent words",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -17,8 +17,6 @@
   "dependencies": {
     "@vect/vector-init": "^0.2.5",
     "@vect/vector-merge": "^0.2.5"
-  },
-  "devDependencies": {
   },
   "repository": {
     "type": "git",
