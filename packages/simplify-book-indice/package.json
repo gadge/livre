@@ -1,7 +1,7 @@
 {
-  "name": "@livre/word-count",
+  "name": "@livre/reform-book-indice",
   "version": "0.0.1",
-  "description": "Word count",
+  "description": "frequent words",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "files": [
@@ -15,17 +15,13 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@livre/enum-regexes": "^0.0.1",
-    "@livre/frequent-words": "^0.0.1"
-  },
-  "devDependencies": {
-    "@geia/by": "^0.0.9",
-    "@geia/cluster-institute": "^0.0.9",
-    "@geia/enum-events": "^0.0.9",
-    "@geia/enum-roles": "^0.0.9",
-    "@geia/signaler": "^0.0.9",
-    "@valjoux/linger": "^0.1.10",
-    "@vect/vector-init": "^0.2.6"
+    "@aryth/roman": "^0.2.11",
+    "@spare/deco": "^0.8.1",
+    "@spare/enum-chars": "^0.8.1",
+    "@spare/tap": "^0.8.1",
+    "@typen/nullish": "^0.1.5",
+    "@typen/num-strict": "^0.1.5",
+    "@vect/vector-differentiator": "^0.2.6"
   },
   "repository": {
     "type": "git",
@@ -33,8 +29,7 @@
   },
   "keywords": [
     "livre",
-    "word-count",
-    "word-frequency"
+    "reform-book-indice"
   ],
   "author": "Hoyeung Wong",
   "license": "MIT",

@@ -1,0 +1,15 @@
+export const candidates = {
+  Intro: 'Introduction to the Enlarged Edition',
+  Ch3: 'Chapter III',
+  S44E26: '60 Minutes, season 44, episode 26 (18 March 2012)',
+  Noop: '"Starship Update" talk at the SpaceX facility in Boca Chica, Texas on September 28, 2019',
+  P21: 'pages 21',
+  Vol28P21: 'Collected Writings volume xxviii pages 21-22',
+  Ch12: 'Chapter XII, Money - Master or Servant',
+  ISBN_P9: 'ISBN 978-1-4262-1278-9.. Page 9. ',
+  Vol52P182: 'pp. 19–20. Quoted in Samuel Crowther, "Henry Ford\'s Problem," The Magazine of Business, vol. 52 (1927), p. 182',
+  Ch4: 'Perry Anderson, The Origins of Postmodernity (1999), Ch. 4 : After-effects',
+  L78_80: 'Polonius, lines 78 through 80',
+  A5s2: 'Othello, Act V, scene ii.',
+  P1A5s6: 'Henry IV, Part 1,  Falstaff, Act V,  scene iv.',
+}

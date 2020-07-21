@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var frequentWords = require('@livre/frequent-words');
 var enumRegexes = require('@livre/enum-regexes');
+var frequentWords = require('@livre/frequent-words');
 
 const WordCount = ({
   excludes,

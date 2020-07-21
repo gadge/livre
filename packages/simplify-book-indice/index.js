@@ -1,0 +1,1 @@
+export { simplifyBookIndice } from './src/simplifyBookIndice'

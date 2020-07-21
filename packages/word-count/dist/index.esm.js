@@ -1,5 +1,5 @@
-import { frequentWords } from '@livre/frequent-words';
 import { WORD, NUM } from '@livre/enum-regexes';
+import { frequentWords } from '@livre/frequent-words';
 
 const WordCount = ({
   excludes,
