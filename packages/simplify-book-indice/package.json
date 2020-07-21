@@ -1,5 +1,5 @@
 {
-  "name": "@livre/reform-book-indice",
+  "name": "@livre/simplify-book-indice",
   "version": "0.0.2",
   "description": "frequent words",
   "main": "dist/index.cjs.js",
@@ -29,7 +29,7 @@
   },
   "keywords": [
     "livre",
-    "reform-book-indice"
+    "simplify-book-indice"
   ],
   "author": "Hoyeung Wong",
   "license": "MIT",

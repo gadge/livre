@@ -1,4 +1,4 @@
-# @livre/reform-book-indice
+# @livre/simplify-book-indice
 
 [![npm version][badge-npm-version]][url-npm]
 [![npm download monthly][badge-npm-download-monthly]][url-npm]
@@ -10,25 +10,25 @@
 [![github commit total][badge-github-commit-count]][url-github]
 
 [//]: <> (Shields)
-[badge-npm-version]: https://flat.badgen.net/npm/v/@livre/reform-book-indice
-[badge-npm-download-monthly]: https://flat.badgen.net/npm/dm/@livre/reform-book-indice
-[badge-npm-download-total]:https://flat.badgen.net/npm/dt/@livre/reform-book-indice
-[badge-npm-dependents]: https://flat.badgen.net/npm/dependents/@livre/reform-book-indice
-[badge-npm-license]: https://flat.badgen.net/npm/license/@livre/reform-book-indice
-[badge-pp-install-size]: https://flat.badgen.net/packagephobia/install/@livre/reform-book-indice
+[badge-npm-version]: https://flat.badgen.net/npm/v/@livre/simplify-book-indice
+[badge-npm-download-monthly]: https://flat.badgen.net/npm/dm/@livre/simplify-book-indice
+[badge-npm-download-total]:https://flat.badgen.net/npm/dt/@livre/simplify-book-indice
+[badge-npm-dependents]: https://flat.badgen.net/npm/dependents/@livre/simplify-book-indice
+[badge-npm-license]: https://flat.badgen.net/npm/license/@livre/simplify-book-indice
+[badge-pp-install-size]: https://flat.badgen.net/packagephobia/install/@livre/simplify-book-indice
 [badge-github-last-commit]: https://flat.badgen.net/github/last-commit/hoyeungw/livre
 [badge-github-commit-count]: https://flat.badgen.net/github/commits/hoyeungw/livre
 
 [//]: <> (Link)
-[url-npm]: https://npmjs.org/package/@livre/reform-book-indice
-[url-pp]: https://packagephobia.now.sh/result?p=@livre/reform-book-indice
+[url-npm]: https://npmjs.org/package/@livre/simplify-book-indice
+[url-pp]: https://packagephobia.now.sh/result?p=@livre/simplify-book-indice
 [url-github]: https://github.com/hoyeungw/livre
 
 ##### Enums of events
 
 #### Install
 ```console
-$ npm install @livre/reform-book-indice
+$ npm install @livre/simplify-book-indice
 ```
 
 #### Usage
