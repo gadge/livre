@@ -1,6 +1,6 @@
 {
   "name": "@livre/word-count",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Word count",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -15,8 +15,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@livre/enum-regexes": "^0.0.2",
-    "@livre/frequent-words": "^0.0.2"
+    "@livre/enum-regexes": "^0.0.3",
+    "@livre/frequent-words": "^0.0.3"
   },
   "devDependencies": {
     "@geia/by": "^0.0.9",
