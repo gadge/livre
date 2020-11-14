@@ -19,13 +19,13 @@
     "@livre/frequent-words": "^0.0.3"
   },
   "devDependencies": {
-    "@geia/by": "^0.0.9",
-    "@geia/cluster-institute": "^0.0.9",
-    "@geia/enum-events": "^0.0.9",
-    "@geia/enum-roles": "^0.0.9",
-    "@geia/signaler": "^0.0.9",
-    "@valjoux/linger": "^0.1.10",
-    "@vect/vector-init": "^0.2.6"
+    "@geia/by": "^0.0.10",
+    "@geia/cluster-institute": "^0.0.10",
+    "@geia/enum-events": "^0.0.10",
+    "@geia/enum-roles": "^0.0.10",
+    "@geia/signaler": "^0.0.10",
+    "@valjoux/linger": "^0.2.2",
+    "@vect/vector-init": "^0.3.4"
   },
   "repository": {
     "type": "git",
