@@ -20,6 +20,7 @@ const parseAuthors = authors => {
 export const bookNaming = base => {
   base = base.replace(/\s?\(z-lib.org\)\s?/, '')
   if (!BY.test(base)) return base
+  BY.lastIndex = 0
   const [ book, authors ] = sepByLast.call(BY, base)
   const { primary, rest } = parseAuthors(authors)
   const author = rest?.length ? primary + COSP + rest.join(COSP) : primary

@@ -1,5 +1,6 @@
 import { parsePath }          from '@acq/parse-path'
 import { decoString, logger } from '@spare/logger'
+import { bookNaming }         from '../src/bookNaming'
 
 export const candidates = [
   'Best of Detail Fassaden Facades by Christian Schittich (z-lib.org).pdf',
@@ -13,9 +14,7 @@ export const candidates = [
 ]
 
 
-
-
 for (let candidate of candidates) {
   const o = parsePath(candidate)
-  o.base |> rename |> decoString|> logger
+  o.base |> bookNaming |> decoString|> logger
 }
