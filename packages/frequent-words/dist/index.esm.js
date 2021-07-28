@@ -9,7 +9,7 @@ import { merges } from '@vect/vector-merge';
  */
 
 const alphabets = range(97, 122).map(x => String.fromCharCode(x));
-const numerals = range(48, 57).map(x => String.fromCharCode(x));
+range(48, 57).map(x => String.fromCharCode(x));
 const prepositions = ['of', 'to', 'on', 'in', 'at', 'by', 'up', 'out', 'for', 'with', 'from', 'upon', 'down', 'into', 'onto', 'than', 'under', 'toward', 'before', 'after', 'behind', 'during', 'inside', 'against', 'between', 'outside', 'without', 'through', 'beneath', 'throughout'];
 const adverbs = ['all', 'not', 'no', 'nor', 'neither', 'either', 'any', 'again', 'never'];
 const conjunctions = ['and', 'but', 'if', 'or', 'so', 'as', 'therefore', 'however', 'although', 'even', 'though', 'yet', 'once'];

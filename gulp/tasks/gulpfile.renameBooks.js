@@ -18,7 +18,7 @@ let index = 0
 export const task = function () {
   return gulp
     .src(SRC + '/*.txt')
-    .pipe(rename(function (path, file) {
+    .pipe(rename((path, file) => {
       const { author, title } = file.contents |> extractAuthorTitle |> determineBookName
       Xr(time()).br(path.basename).p('->')[ros(author)](ros(title)) |> says['#'].br(index++)
       return {

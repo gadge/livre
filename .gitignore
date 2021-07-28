@@ -2,6 +2,9 @@
 temp
 node_modules
 yarn.lock
+static/books
+target
+dist
 static/source
 static/target
 .yarn
