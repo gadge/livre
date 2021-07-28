@@ -1,8 +1,8 @@
 import { parsePath }             from '@acq/parse-path'
 import checkbox                  from '@inquirer/checkbox'
 import { RN }                    from '@spare/enum-chars'
-import { logger, ros, says, Xr } from '@spare/logger'
-import { bracket }               from '@texting/bracket'
+import { logger, ros, says, xr } from '@spare/logger'
+import { bracket, parenth }      from '@texting/bracket'
 import { time }                  from '@valjoux/timestamp-pretty'
 import { promises }              from 'fs'
 import { bookNaming }            from './bookNaming'
@@ -31,7 +31,7 @@ export const cli = async () => {
       message: 'Select extend(s)',
       choices: candidateExtends.map(value => ( { value } )),
     })
-    console.log('Selected extend(s):', selectedExtends)
+    xr()['selected extend'](selectedExtends) |> says['livre']
 
     const candidateFiles = entireFiles.filter(x => selectedExtends.includes(x.ext))
     for (let fileInfo of candidateFiles) {
@@ -56,7 +56,7 @@ export const cli = async () => {
       ).then(() => {
           const same = fileInfo.base === fileInfo.to
           same ? unchanged++ : succeed++
-          bracket(ros(fileInfo.base)) + RN + bracket(fileInfo.to) |> says['livre'].br(same ? 'unchanged' : 'renamed')
+          bracket(ros(fileInfo.base)) + parenth('to') + RN + bracket(fileInfo.to) |> says['livre'].br(same ? 'unchanged' : 'renamed')
         }
       ).catch((e) => {
           failure++
@@ -64,7 +64,8 @@ export const cli = async () => {
         }
       )
     }
-    Xr().succeed(succeed).failure(failure).unchanged(unchanged) |> says['livre']
+
+    xr()['total'](succeed + failure + unchanged)['succeed'](succeed)['failure'](failure)['unchanged'](unchanged) |> says['livre']
     RN |> logger
     live = false
   }
