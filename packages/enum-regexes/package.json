@@ -1,6 +1,6 @@
 {
   "name": "@livre/enum-regexes",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "regexes",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
