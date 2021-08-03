@@ -1,11 +1,10 @@
-import { parsePath }                 from '@acq/parse-path'
-import checkbox                      from '@inquirer/checkbox'
-import confirm                       from '@inquirer/confirm'
-import { RN }                        from '@spare/enum-chars'
-import { logger, ros, says, Xr, xr } from '@spare/logger'
-import { time }                      from '@valjoux/timestamp-pretty'
-import { promises }                  from 'fs'
-import { bookNaming }                from './bookNaming'
+import { parsePath }             from '@acq/parse-path'
+import { RN }                    from '@spare/enum-chars'
+import { logger, ros, says, Xr } from '@spare/logger'
+import { time }                  from '@valjoux/timestamp-pretty'
+import { promises }              from 'fs'
+import prompts                   from 'prompts'
+import { bookNaming }            from './bookNaming'
 
 const SRC = process.cwd()
 says['livre'].attach(time)
@@ -27,15 +26,18 @@ export const cli = async () => {
       )
     const CANDIDATE_EXTS = [ ...new Set(ENTIRE_FILEINFOS.map(({ ext }) => ext)) ]
 
-    const SELECTED_EXTS = await checkbox({
+    const { value: SELECTED_EXTS } = await prompts({
+      type: 'multiselect',
+      name: 'value',
       message: 'Select extend(s)',
       choices: CANDIDATE_EXTS.map(value => ( { value } )),
+      hint: '- Space to select. Return to submit'
     })
-    xr()['selected extend'](SELECTED_EXTS) |> says['livre']
+    Xr()['selected extend'](SELECTED_EXTS) |> says['livre']
 
     const CANDIDATE_FILEINFOS = ENTIRE_FILEINFOS.filter(x => SELECTED_EXTS.includes(x.ext))
 
-    const CONTAINER = {
+    const TALE = {
       succeed: 0,
       failure: 0,
       unchanged: 0,
@@ -44,21 +46,26 @@ export const cli = async () => {
     for (let { base, ext } of CANDIDATE_FILEINFOS) {
       const target = bookNaming(base)
       if (target === base) {
+        ++TALE.unchanged
         ros(base) |> says['livre'].br('unchanged')
         continue
       }
-      const ready = await confirm({ message: Xr().br(ros(base)).p('renamed to').br(says[base].render(target)).p('?') })
-      if (ready) {
-        await promises.rename(SRC + '/' + base + ext, SRC + '/' + target + ext)
-          .then(() => ++CONTAINER.succeed)
-          .catch(e => console.error(++CONTAINER.failure, e))
-      }
+      const ready = await prompts({
+        type: 'confirm',
+        name: 'value',
+        message: Xr().br(ros(base)).p('renamed to').br(says[base].render(target)).p('?'),
+        initial: true,
+      })
+      if (ready.value) await promises
+        .rename(SRC + '/' + base + ext, SRC + '/' + target + ext)
+        .then(() => ++TALE.succeed)
+        .catch(e => console.error(++TALE.failure, e))
     }
-    xr()
-      ['total'](CONTAINER.total)
-      ['succeed'](CONTAINER.succeed)
-      ['failure'](CONTAINER.failure)
-      ['unchanged'](CONTAINER.unchanged)
+    Xr()
+      ['total'](TALE.total)
+      ['succeed'](TALE.succeed)
+      ['failure'](TALE.failure)
+      ['unchanged'](TALE.unchanged)
       |> says['livre']
     RN |> logger
     live = false
