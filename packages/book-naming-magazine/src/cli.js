@@ -1,11 +1,11 @@
-import { parsePath }             from '@acq/parse-path'
-import checkbox                  from '@inquirer/checkbox'
-import { RN }                    from '@spare/enum-chars'
-import { logger, ros, says, xr } from '@spare/logger'
-import { bracket, parenth }      from '@texting/bracket'
-import { time }                  from '@valjoux/timestamp-pretty'
-import { promises }              from 'fs'
-import { bookNaming }            from './bookNaming'
+import { parsePath }                 from '@acq/parse-path'
+import checkbox                      from '@inquirer/checkbox'
+import confirm                       from '@inquirer/confirm'
+import { RN }                        from '@spare/enum-chars'
+import { logger, ros, says, Xr, xr } from '@spare/logger'
+import { time }                      from '@valjoux/timestamp-pretty'
+import { promises }                  from 'fs'
+import { bookNaming }                from './bookNaming'
 
 const SRC = process.cwd()
 says['livre'].attach(time)
@@ -14,7 +14,7 @@ export const cli = async () => {
   let id = 0
   while (live) {
     ros(SRC) |> says['livre']
-    const entireFiles = await promises
+    const ENTIRE_FILEINFOS = await promises
       .readdir(process.cwd(), { withFileTypes: true })
       .then(list => list
         .filter(dirent => !dirent.isDirectory())
@@ -25,47 +25,41 @@ export const cli = async () => {
           return fileInfo
         })
       )
+    const CANDIDATE_EXTS = [ ...new Set(ENTIRE_FILEINFOS.map(({ ext }) => ext)) ]
 
-    const candidateExtends = [ ...new Set(entireFiles.map(({ ext }) => ext)) ]
-    const selectedExtends = await checkbox({
+    const SELECTED_EXTS = await checkbox({
       message: 'Select extend(s)',
-      choices: candidateExtends.map(value => ( { value } )),
+      choices: CANDIDATE_EXTS.map(value => ( { value } )),
     })
-    xr()['selected extend'](selectedExtends) |> says['livre']
+    xr()['selected extend'](SELECTED_EXTS) |> says['livre']
 
-    const candidateFiles = entireFiles.filter(x => selectedExtends.includes(x.ext))
-    for (let fileInfo of candidateFiles) {
-      fileInfo.to = fileInfo.base |> bookNaming
+    const CANDIDATE_FILEINFOS = ENTIRE_FILEINFOS.filter(x => SELECTED_EXTS.includes(x.ext))
+
+    const CONTAINER = {
+      succeed: 0,
+      failure: 0,
+      unchanged: 0,
+      get total() { return this.succeed + this.failure + this.unchanged }
     }
-    const selectedIDs = await checkbox({
-      message: 'Select files to handle',
-      pageSize: candidateFiles.length * 4,
-      // showHelpTip: true,
-      choices: candidateFiles
-        .map(({ base, ext, to, id }) => ( {
-          value: id,
-          name: ros(base + ext) + RN + '   ' + ( to + ext )
-        } ))
-    })
-
-    let succeed = 0, failure = 0, unchanged = 0
-    for (let fileInfo of candidateFiles) if (selectedIDs.includes(fileInfo.id)) {
-      await promises.rename(
-        SRC + '/' + fileInfo.base + fileInfo.ext,
-        SRC + '/' + fileInfo.to + fileInfo.ext
-      ).then(() => {
-          const same = fileInfo.base === fileInfo.to
-          same ? unchanged++ : succeed++
-          bracket(ros(fileInfo.base)) + parenth('to') + RN + bracket(fileInfo.to) |> says['livre'].br(same ? 'unchanged' : 'renamed')
-        }
-      ).catch((e) => {
-          failure++
-          console.error(e)
-        }
-      )
+    for (let { base, ext } of CANDIDATE_FILEINFOS) {
+      const target = bookNaming(base)
+      if (target === base) {
+        ros(base) |> says['livre'].br('unchanged')
+        continue
+      }
+      const ready = await confirm({ message: Xr().br(ros(base)).p('renamed to').br(says[base].render(target)).p('?') })
+      if (ready) {
+        await promises.rename(SRC + '/' + base + ext, SRC + '/' + target + ext)
+          .then(() => ++CONTAINER.succeed)
+          .catch(e => console.error(++CONTAINER.failure, e))
+      }
     }
-
-    xr()['total'](succeed + failure + unchanged)['succeed'](succeed)['failure'](failure)['unchanged'](unchanged) |> says['livre']
+    xr()
+      ['total'](CONTAINER.total)
+      ['succeed'](CONTAINER.succeed)
+      ['failure'](CONTAINER.failure)
+      ['unchanged'](CONTAINER.unchanged)
+      |> says['livre']
     RN |> logger
     live = false
   }
