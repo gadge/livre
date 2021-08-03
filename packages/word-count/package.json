@@ -1,6 +1,6 @@
 {
   "name": "@livre/word-count",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Word count",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -15,8 +15,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@livre/enum-regexes": "^0.1.1",
-    "@livre/frequent-words": "^0.1.1"
+    "@livre/enum-regexes": "^0.1.2",
+    "@livre/frequent-words": "^0.1.2"
   },
   "devDependencies": {
     "@aryth/distinct-vector": "^0.3.23",

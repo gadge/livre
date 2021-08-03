@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-magazine",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "rename book from zlib",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -14,14 +14,10 @@
     "pub": "npm publish",
     "test": "node -r @babel/register test/test.index.js"
   },
-  "bin": {
-    "book-naming-magazine": "bin/bookNaming.js"
-  },
+  "bin": "bin/bookNaming.js",
   "dependencies": {
     "@acq/parse-path": "^0.2.18",
     "@aryth/roman": "^0.3.23",
-    "@inquirer/checkbox": "^0.0.16-alpha.0",
-    "@inquirer/confirm": "^0.0.15-alpha.0",
     "@spare/deco": "^0.12.0",
     "@spare/enum-chars": "^0.12.0",
     "@spare/logger": "^0.12.0",
@@ -31,7 +27,8 @@
     "@typen/nullish": "^0.1.17",
     "@typen/num-strict": "^0.1.17",
     "@valjoux/timestamp-pretty": "^0.3.7",
-    "@vect/vector-differentiator": "^0.4.4"
+    "@vect/vector-differentiator": "^0.4.4",
+    "prompts": "^2.4.1"
   },
   "repository": {
     "type": "git",
