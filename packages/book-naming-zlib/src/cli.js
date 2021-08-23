@@ -1,4 +1,4 @@
-import { parsePath }             from '@acq/parse-path'
+import { subFileInfos }          from '@acq/path'
 import checkbox                  from '@inquirer/checkbox'
 import { RN }                    from '@spare/enum-chars'
 import { logger, ros, says, xr } from '@spare/logger'
@@ -14,17 +14,7 @@ export const cli = async () => {
   let id = 0
   while (live) {
     ros(SRC) |> says['livre']
-    const entireFiles = await promises
-      .readdir(process.cwd(), { withFileTypes: true })
-      .then(list => list
-        .filter(dirent => !dirent.isDirectory())
-        .map((dirent) => {
-          const fileInfo = parsePath(dirent.name)
-          fileInfo.id = id++
-          delete ( fileInfo.dir )
-          return fileInfo
-        })
-      )
+    const entireFiles = await subFileInfos(process.cwd())
 
     const candidateExtends = [ ...new Set(entireFiles.map(({ ext }) => ext)) ]
     const selectedExtends = await checkbox({

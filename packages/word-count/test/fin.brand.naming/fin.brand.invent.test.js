@@ -29,6 +29,7 @@ const SUFFIXES = [
   'lott',
 ]
 
+// noinspection SpellCheckingInspection
 function* dualPermutator(vec) {
   const flopA = vec.slice() |> finiteFlopper
   let a, b

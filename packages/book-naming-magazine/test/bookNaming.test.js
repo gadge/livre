@@ -1,4 +1,4 @@
-import { parsePath }          from '@acq/parse-path'
+import { parsePath }          from '@acq/path'
 import { decoString, logger } from '@spare/logger'
 import { bookNaming }         from '../src/bookNaming'
 

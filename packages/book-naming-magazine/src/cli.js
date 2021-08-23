@@ -1,4 +1,4 @@
-import { parsePath }             from '@acq/parse-path'
+import { subFileInfos }          from '@acq/path'
 import { RN }                    from '@spare/enum-chars'
 import { logger, ros, says, Xr } from '@spare/logger'
 import { time }                  from '@valjoux/timestamp-pretty'
@@ -13,17 +13,7 @@ export const cli = async () => {
   let id = 0
   while (live) {
     ros(SRC) |> says['livre']
-    const ENTIRE_FILEINFOS = await promises
-      .readdir(process.cwd(), { withFileTypes: true })
-      .then(list => list
-        .filter(dirent => !dirent.isDirectory())
-        .map((dirent) => {
-          const fileInfo = parsePath(dirent.name)
-          fileInfo.id = id++
-          delete ( fileInfo.dir )
-          return fileInfo
-        })
-      )
+    const ENTIRE_FILEINFOS = await subFileInfos(process.cwd())
     const CANDIDATE_EXTS = [ ...new Set(ENTIRE_FILEINFOS.map(({ ext }) => ext)) ]
 
     const { value: SELECTED_EXTS } = await prompts({
