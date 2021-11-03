@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-magazine",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "rename book from zlib",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
