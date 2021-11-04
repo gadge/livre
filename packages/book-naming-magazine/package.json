@@ -16,7 +16,7 @@
   },
   "bin": "bin/bookNaming.js",
   "dependencies": {
-    "@acq/path": "^0.3.2",
+    "@acq/path": "^0.3.3",
     "@aryth/roman": "^0.3.26",
     "@spare/deco": "^0.12.4",
     "@spare/enum-chars": "^0.12.4",
