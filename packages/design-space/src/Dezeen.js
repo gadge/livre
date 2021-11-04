@@ -22,7 +22,8 @@ export class Dezeen {
   }
   async imageUrls(urls) {
     const limit = Math.min(urls.length, 2)
-    return this.chrome.evalPages({ urls, selector, limit, log: true })
+    const options = { waitUntil: 'load', timeout: 300000 }
+    return this.chrome.evalPages({ urls, limit, selector, options, log: true })
   }
   async imageUrl(url, log) {
     let spin, pretty
