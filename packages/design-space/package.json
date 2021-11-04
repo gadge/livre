@@ -1,6 +1,6 @@
 {
   "name": "@livre/design-space",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "download design images",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
