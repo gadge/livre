@@ -5,29 +5,39 @@ import { time }                       from '@valjoux/timestamp-pretty'
 import { promises }                   from 'fs'
 import prompts                        from 'prompts'
 import { Dezeen }                     from './Dezeen'
-import { cleanDezeenImage }           from './Dezeen/clean'
+import { ImageNaming }                from './Dezeen/naming'
 
-const SRC = process.cwd()
+const SRC = process.cwd() + '/dezeen'
 const LIVRE = 'livre'
 says[LIVRE].attach(time)
+
 
 class LocalSaveService {
   static async saveListAsTxt(list, log = false) {
     if (list?.length <= 0) return
     const [ url ] = list
-    const { dir, base, ext } = parsePath(cleanDezeenImage(url))
+    const { dir, base, ext } = parsePath(ImageNaming.makeFolderName(url))
     const entries = list.map(origin => {
-      return [ origin, cleanDezeenImage(origin) ]
+      return [ origin, ImageNaming.reviveUrl(origin) ]
     })
     entries |> decoEntries |> says[LIVRE].p('>> saving')
     const body = list.join(LF)
-    const raw = SRC + '/' + base + '.raw.txt'
+
+    await promises.mkdir(SRC + '/raw', { recursive: true })
+    await promises.mkdir(SRC + '/dev', { recursive: true })
+
+    const raw = SRC + '/raw/' + base + '.raw.txt'
     await promises.writeFile(raw, entries.map(([ k, v ]) => k).join(LF))
     if (log) Xr().file(ros(raw)) |> says[LIVRE].p('>> saved')
-    const dev = SRC + '/' + base + '.dev.txt'
+
+    const dev = SRC + '/dev/' + base + '.dev.txt'
     await promises.writeFile(dev, entries.map(([ k, v ]) => v).join(LF))
     if (log) Xr().file(ros(dev)) |> says[LIVRE].p('>> saved')
+
     return body.length / 1048576
+  }
+  static async saveListAsImg(list, log = true) {
+
   }
 
 }
