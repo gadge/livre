@@ -33,7 +33,8 @@ export class Dezeen {
     // if (log) spin = ora(`>> opening page`).start()
 
     const page = await this.chrome.browser.newPage()
-    await page.goto(url)
+    const options = { waitUntil: 'load', timeout: 300000 }
+    await page.goto(url,options)
 
     // if (log) spin.stopAndPersist({ text: `>> page ${ pageId(page) } is evaluating ${ pretty }` })
     if (log) Xr().page(pageId(page)).for(pretty) |> says[PUPPETEER].p('>> created')
@@ -62,6 +63,8 @@ async function selector(page) {
   }
   return [ ...new Set(vec) ]
 }
+
+
 
 
 
