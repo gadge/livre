@@ -14,7 +14,9 @@
     "pub": "npm publish",
     "test": "node -r @babel/register test/test.index.js"
   },
-  "bin": "bin/bookNaming.js",
+  "bin": {
+    "book-naming-magazine": "bin/bookNaming.js"
+  },
   "dependencies": {
     "@acq/path": "^0.3.3",
     "@aryth/roman": "^0.3.26",
