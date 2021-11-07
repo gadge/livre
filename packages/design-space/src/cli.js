@@ -1,7 +1,9 @@
 import { parsePath }                  from '@acq/parse-path'
+import { bound }                      from '@aryth/bound-vector'
 import { LF }                         from '@spare/enum-chars'
 import { decoEntries, ros, says, Xr } from '@spare/logger'
 import { time }                       from '@valjoux/timestamp-pretty'
+import { range }                      from '@vect/vector-init'
 import { promises }                   from 'fs'
 import prompts                        from 'prompts'
 import { Dezeen }                     from './Dezeen'
@@ -13,6 +15,23 @@ says[LIVRE].attach(time)
 
 
 class LocalSaveService {
+  static populate(list) {
+    const REG_INDEX = /(?<=dezeen_\d+_col_)(\d+)(?=.jpg)/
+    const filtered = list.filter(tx => REG_INDEX.test(tx))
+    if (!filtered?.length) return list
+    const indexes = filtered.map(tx => {
+      let ms, ph
+      return ( ms = REG_INDEX.exec(tx) ) && ( [ ph ] = ms ) ? +ph : 0
+    })
+    const { min, max } = bound(indexes)
+    // filtered |> deco |> says['filtered']
+    // indexes |> deco |> says['indexes'];
+    // ( { min, max } ) |> deco |> says['bound']
+    const numbers = range(0, max)
+    const [ baseUrl ] = filtered
+    const indexed = numbers.map(i => baseUrl.replace(REG_INDEX, i))
+    return [ ...new Set([ ...indexed, ...list ]) ]
+  }
   static async saveListAsTxt(list, log = false) {
     if (list?.length <= 0) return
     const [ url ] = list
@@ -26,13 +45,20 @@ class LocalSaveService {
     await promises.mkdir(SRC + '/raw', { recursive: true })
     await promises.mkdir(SRC + '/dev', { recursive: true })
 
-    const raw = SRC + '/raw/' + base + '.raw.txt'
-    await promises.writeFile(raw, entries.map(([ k, v ]) => k).join(LF))
-    if (log) Xr().file(ros(raw)) |> says[LIVRE].p('>> saved')
-
-    const dev = SRC + '/dev/' + base + '.dev.txt'
-    await promises.writeFile(dev, entries.map(([ k, v ]) => v).join(LF))
-    if (log) Xr().file(ros(dev)) |> says[LIVRE].p('>> saved')
+    // save raw
+    {
+      const dest = SRC + '/raw/' + base + '.raw.txt'
+      const urls = entries.map(([ k, v ]) => k)
+      await promises.writeFile(dest, urls.join(LF))
+      if (log) Xr().file(ros(dest)) |> says[LIVRE].p('>> saved')
+    }
+    // save dev
+    {
+      const dest = SRC + '/dev/' + base + '.dev.txt'
+      const urls = entries.map(([ k, v ]) => v)
+      await promises.writeFile(dest, LocalSaveService.populate(urls).join(LF))
+      if (log) Xr().file(ros(dest)) |> says[LIVRE].p('>> saved')
+    }
 
     return body.length / 1048576
   }
