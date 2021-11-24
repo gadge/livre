@@ -16,4 +16,5 @@ static/target
 !.yarn/versions
 yarn.lock
 yarn-error.log
+dezeen
 
