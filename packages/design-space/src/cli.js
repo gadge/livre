@@ -1,76 +1,19 @@
-import { parsePath }                  from '@acq/parse-path'
-import { bound }                      from '@aryth/bound-vector'
-import { LF }                         from '@spare/enum-chars'
-import { decoEntries, ros, says, Xr } from '@spare/logger'
-import { time }                       from '@valjoux/timestamp-pretty'
-import { range }                      from '@vect/vector-init'
-import { promises }                   from 'fs'
-import prompts                        from 'prompts'
-import { Dezeen }                     from './Dezeen'
-import { ImageNaming }                from './Dezeen/naming'
+import { ros, says }     from '@spare/logger'
+import { time }          from '@valjoux/timestamp-pretty'
+import prompts           from 'prompts'
+import { LIVRE }         from '../resources/constants'
+import { DezeenBrowser } from './DezeenBrowser'
+import { DezeenPorter }  from './DezeenPorter'
 
 const SRC = process.cwd() + '/dezeen'
-const LIVRE = 'livre'
 says[LIVRE].attach(time)
+const LOG = true
 
-
-class LocalSaveService {
-  static populate(list) {
-    const REG_INDEX = /(?<=dezeen_\d+_col_)(\d+)(?=.jpg)/
-    const filtered = list.filter(tx => REG_INDEX.test(tx))
-    if (!filtered?.length) return list
-    const indexes = filtered.map(tx => {
-      let ms, ph
-      return ( ms = REG_INDEX.exec(tx) ) && ( [ ph ] = ms ) ? +ph : 0
-    })
-    const { min, max } = bound(indexes)
-    // filtered |> deco |> says['filtered']
-    // indexes |> deco |> says['indexes'];
-    // ( { min, max } ) |> deco |> says['bound']
-    const numbers = range(0, max)
-    const [ baseUrl ] = filtered
-    const indexed = numbers.map(i => baseUrl.replace(REG_INDEX, i))
-    return [ ...new Set([ ...indexed, ...list ]) ]
-  }
-  static async saveListAsTxt(list, log = false) {
-    if (list?.length <= 0) return
-    const [ url ] = list
-    const { dir, base, ext } = parsePath(ImageNaming.makeFolderName(url))
-    const entries = list.map(origin => {
-      return [ origin, ImageNaming.reviveUrl(origin) ]
-    })
-    entries |> decoEntries |> says[LIVRE].p('>> saving')
-    const body = list.join(LF)
-
-    await promises.mkdir(SRC + '/raw', { recursive: true })
-    await promises.mkdir(SRC + '/dev', { recursive: true })
-
-    // save raw
-    {
-      const dest = SRC + '/raw/' + base + '.raw.txt'
-      const urls = entries.map(([ k, v ]) => k)
-      await promises.writeFile(dest, urls.join(LF))
-      if (log) Xr().file(ros(dest)) |> says[LIVRE].p('>> saved')
-    }
-    // save dev
-    {
-      const dest = SRC + '/dev/' + base + '.dev.txt'
-      const urls = entries.map(([ k, v ]) => v)
-      await promises.writeFile(dest, LocalSaveService.populate(urls).join(LF))
-      if (log) Xr().file(ros(dest)) |> says[LIVRE].p('>> saved')
-    }
-
-    return body.length / 1048576
-  }
-  static async saveListAsImg(list, log = true) {
-
-  }
-
-}
 export const cli = async () => {
-  const dezeen = await Dezeen.build()
+  const dezeenBrowser = await DezeenBrowser.build(LOG)
+  const dezeenPorter = DezeenPorter.build(SRC, true)
   const { approach } = await prompts({
-    type: 'select',
+    type: 'multiselect',
     name: 'approach',
     message: 'Select approach.',
     choices: [
@@ -87,16 +30,16 @@ export const cli = async () => {
       name: 'url',
       message: 'Type in url.',
     })
+    if (!url?.startsWith('https://')) continue
+    if (!approach?.length) continue
 
-    const images = await dezeen.imageUrl(url, true)
-    switch (approach) {
-      case 'txt':
-        await LocalSaveService.saveListAsTxt(images, true)
-        break
-      case 'img':
-        'img fn in dev' |> says[LIVRE]
-        break
-    }
+    const urls = await dezeenBrowser.selectImageUrls(url)
+    dezeenPorter.loadUrls(urls)
+
+    if (approach.includes('txt')) await dezeenPorter.saveAsText()
+    if (approach.includes('img')) await dezeenPorter.saveAsImage()
+
+    dezeenPorter.reset()
 
     const { keep } = await prompts({
         type: 'select',
@@ -111,5 +54,5 @@ export const cli = async () => {
     live = keep
   }
 
-  await dezeen.close()
+  await dezeenBrowser.close()
 }
