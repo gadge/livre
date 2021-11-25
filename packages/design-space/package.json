@@ -1,6 +1,6 @@
 {
   "name": "@livre/design-space",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "download design images",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -16,9 +16,9 @@
   },
   "bin": "./bin/script.js",
   "dependencies": {
-    "@acq/chrome": "^0.3.5",
-    "@acq/gallery": "^0.3.5",
-    "@acq/path": "^0.3.5",
+    "@acq/chrome": "^0.3.6",
+    "@acq/gallery": "^0.3.6",
+    "@acq/path": "^0.3.6",
     "@aryth/bound-vector": "^0.3.26",
     "@aryth/distinct-vector": "^0.3.26",
     "@aryth/roman": "^0.3.26",
@@ -42,7 +42,7 @@
     "@vect/vector-mapper": "^0.4.9",
     "@vect/vector-merge": "^0.4.9",
     "axios": "^0.24.0",
-    "baro": "^0.0.8",
+    "baro": "^0.0.9",
     "ora": "^6.0.1",
     "prompts": "^2.4.2",
     "puppeteer": "^11.0.0"
