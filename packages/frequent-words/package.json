@@ -2,8 +2,10 @@
   "name": "@livre/frequent-words",
   "version": "0.1.8",
   "description": "frequent words",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "files": [
     "dist"
   ],
@@ -15,8 +17,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@vect/vector-init": "^0.4.9",
-    "@vect/vector-merge": "^0.4.9"
+    "@vect/vector-init": "^0.4.10",
+    "@vect/vector-merge": "^0.4.10"
   },
   "repository": {
     "type": "git",

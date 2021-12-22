@@ -2,8 +2,10 @@
   "name": "@livre/word-count",
   "version": "0.1.8",
   "description": "Word count",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "files": [
     "dist"
   ],
@@ -22,16 +24,16 @@
     "@aryth/distinct-vector": "^0.3.26",
     "@aryth/flopper": "^0.3.26",
     "@aryth/subset": "^0.3.26",
-    "@geia/by": "^0.1.0",
-    "@geia/cluster-institute": "^0.1.0",
-    "@geia/enum-events": "^0.1.0",
-    "@geia/enum-roles": "^0.1.0",
-    "@geia/signaler": "^0.1.0",
+    "@geia/by": "^0.1.5",
+    "@geia/cluster-institute": "^0.1.5",
+    "@geia/enum-events": "^0.1.5",
+    "@geia/enum-roles": "^0.1.5",
+    "@geia/signaler": "^0.1.5",
     "@valjoux/linger": "^0.3.8",
-    "@vect/matrix": "^0.4.9",
-    "@vect/swap": "^0.4.9",
-    "@vect/vector": "^0.4.9",
-    "@vect/vector-init": "^0.4.9"
+    "@vect/matrix": "^0.4.10",
+    "@vect/swap": "^0.4.10",
+    "@vect/vector": "^0.4.10",
+    "@vect/vector-init": "^0.4.10"
   },
   "repository": {
     "type": "git",

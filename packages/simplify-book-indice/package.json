@@ -2,8 +2,10 @@
   "name": "@livre/simplify-book-indice",
   "version": "0.1.8",
   "description": "frequent words",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "files": [
     "dist"
   ],
@@ -16,12 +18,12 @@
   },
   "dependencies": {
     "@aryth/roman": "^0.3.26",
-    "@spare/deco": "^0.12.5",
-    "@spare/enum-chars": "^0.12.5",
-    "@spare/tap": "^0.12.5",
+    "@spare/deco": "^0.13.2",
+    "@spare/enum-chars": "^0.13.2",
+    "@spare/tap": "^0.13.2",
     "@typen/nullish": "^0.1.17",
     "@typen/num-strict": "^0.1.17",
-    "@vect/vector-differentiator": "^0.4.9"
+    "@vect/vector-differentiator": "^0.4.10"
   },
   "repository": {
     "type": "git",

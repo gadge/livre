@@ -4,7 +4,7 @@ import { distinct }                               from '@aryth/distinct-vector'
 import { FRESH }                                  from '@palett/presets'
 import { ProjectorFactory }                       from '@palett/projector-factory'
 import { LF }                                     from '@spare/enum-chars'
-import { decoEntries, ros, says, Xr }             from '@spare/logger'
+import { ros, says, Xr }                          from '@spare/logger'
 import { wind }                                   from '@vect/entries-init'
 import { maxBy }                                  from '@vect/vector-indicator'
 import { init }                                   from '@vect/vector-init'
@@ -45,11 +45,12 @@ export const DEZEEN_BARO_LAYOUT = {
     return `${timestamp} [${ros(agent)}] ${dye(stageStamp + ' ' + bar)} | ${humanScale(notation.value)} | ${path ?? url}`
   }
 }
+
 export const DEZEEN_REQUEST_HEADERS = {
   'accept': 'image/webp,image/apng,image/jpeg',
   'accept-encoding': 'gzip, deflate, br',
   'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,fr;q=0.6',
-  'user-agent': 'Mozilla/5.0 Chrome/95.0.4638.69 Safari/537.36',
+  'user-agent': 'Mozilla/5.0 Chrome/96.0.4664.45 Safari/537.36',
 }
 
 export class DezeenPorter {
@@ -57,13 +58,6 @@ export class DezeenPorter {
   constructor(src, log) {
     this.src = src
     this.log = log
-
-    this.gallery = Gallery.build({
-      population: 3,
-      headers: DEZEEN_REQUEST_HEADERS,
-      path: this.makeImagePath.bind(this),
-      barFab: Baro.build(DEZEEN_BARO_CONFIG, DEZEEN_BARO_LAYOUT)
-    })
 
     this.origins = null
     this.revives = null
@@ -96,7 +90,7 @@ export class DezeenPorter {
       return this
     }
     else {
-      if (this.log) this.originToRevives |> decoEntries |> says[LIVRE].p('>> saving')
+      // if (this.log) this.originToRevives |> decoEntries |> says[LIVRE].p('>> saving')
     }
 
     // save origins
@@ -124,8 +118,23 @@ export class DezeenPorter {
 
   }
   async saveAsImage() {
+    let gallery = Gallery.build({
+      population: 3,
+      headers: DEZEEN_REQUEST_HEADERS,
+      path: this.makeImagePath.bind(this),
+      barFab: Baro.build(DEZEEN_BARO_CONFIG, DEZEEN_BARO_LAYOUT)
+    })
     await promises.mkdir(`${this.src}/image/${this.folder}`, { recursive: true })
-    await this.gallery.saveImages(this.spreads)
+    const total = this.spreads?.length ?? 0
+    if (this.log) `${total} images` |> says[LIVRE].p('>> downloading')
+    const results = await gallery.saveImages(this.spreads)
+    if (this.log) {
+      const saved = results.filter(({ stage }) => stage === 'saved').length
+      const error = results.filter(({ stage }) => stage === 'error').length
+      Xr().total(total).saved(saved).error(error) |> says[LIVRE].p('>> downloaded')
+    }
+    gallery.barFab.io.removeEvents()
+    gallery = null
     return this
   }
 

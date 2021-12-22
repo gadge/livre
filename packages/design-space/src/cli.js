@@ -1,3 +1,4 @@
+import { clear, cursor } from '@arpel/escape'
 import { ros, says }     from '@spare/logger'
 import { time }          from '@valjoux/timestamp-pretty'
 import prompts           from 'prompts'
@@ -24,6 +25,7 @@ export const cli = async () => {
 
   let live = true
   while (live) {
+    process.stdout.write(clear.ENTIRE_SCREEN + cursor.goto(0, 0))
     ros(SRC) |> says[LIVRE].p('>> working directory')
     const { url } = await prompts({
       type: 'text',
@@ -55,4 +57,5 @@ export const cli = async () => {
   }
 
   await dezeenBrowser.close()
+  process.exit(0)
 }

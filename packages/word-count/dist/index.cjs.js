@@ -13,8 +13,8 @@ const WordCount = ({
   top
 });
 const wordCount = function (contents) {
-  const excludes = (this == null ? void 0 : this.excludes) ?? frequentWords.frequentWords;
-  const top = this == null ? void 0 : this.top;
+  const excludes = (this === null || this === void 0 ? void 0 : this.excludes) ?? frequentWords.frequentWords;
+  const top = this === null || this === void 0 ? void 0 : this.top;
   const counter = {};
   let ms, wd;
 
