@@ -15,8 +15,8 @@ export default {
   input: 'index.js',
   external: Object.keys(dependencies || {}),
   output: [
-    { file: exports['import'], format: 'cjs' },  // CommonJS (for Node) build.
-    { file: exports['require'], format: 'esm' }  // ES module (for bundlers) build.
+    { file: exports['import'], format: 'esm' },  // ES module (for bundlers) build.
+    { file: exports['require'], format: 'cjs' }  // CommonJS (for Node) build.
   ],
   plugins: [
     nodeResolve({ preferBuiltins: true }),
