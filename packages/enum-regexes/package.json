@@ -1,6 +1,6 @@
 {
   "name": "@livre/enum-regexes",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "regexes",
   "exports": {
     "import": "./dist/index.mjs",

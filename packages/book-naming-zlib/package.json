@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-zlib",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "rename book from zlib",
   "type": "module",
   "exports": {
