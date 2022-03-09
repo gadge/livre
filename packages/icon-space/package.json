@@ -1,6 +1,6 @@
 {
   "name": "@livre/icon-space",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Word count",
   "exports": {
     "import": "./dist/index.mjs",
