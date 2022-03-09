@@ -19,7 +19,6 @@
   "dependencies": {
     "axios": "^0.25.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hoyeungw/livre.git"

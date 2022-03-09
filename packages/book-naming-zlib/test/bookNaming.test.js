@@ -1,6 +1,6 @@
 import { parsePath }          from '@acq/path'
 import { decoString, logger } from '@spare/logger'
-import { bookNaming }         from '../src/bookNaming'
+import { bookNaming }         from '../src/bookNaming.js'
 
 export const candidates = [
   'Best of Detail Fassaden Facades by Christian Schittich (z-lib.org).pdf',
@@ -11,10 +11,11 @@ export const candidates = [
   'Smashing Logo Design The Art of Creating Visual Identities by Gareth Hardy (z-lib.org).epub',
   'The Art of Typography An Introduction to Typo.Icon.Ography by Martin Solomon (z-lib.org).pdf',
   'Stand by Me by Liam Gallagher, Paul Authors, Andy Bell, Wak-wok Pearce.pdf',
+  'The Language of Graphic Design An Illustrated Handbook for Understanding Fundamental Design Principles by Richard Poulin (z-lib.org).pdf'
 ]
 
 
 for (let candidate of candidates) {
   const o = parsePath(candidate)
-  o.base |> bookNaming |> decoString|> logger
+  logger(decoString(bookNaming(o.base)))
 }
