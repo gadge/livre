@@ -1,65 +1,58 @@
-import { subFileInfos }          from '@acq/path'
-import { RN }                    from '@spare/enum-chars'
-import { logger, ros, says, Xr } from '@spare/logger'
-import { time }                  from '@valjoux/timestamp-pretty'
-import { promises }              from 'fs'
-import prompts                   from 'prompts'
-import { bookNaming }            from './bookNaming'
+import { subFileInfos }  from '@acq/path'
+import { ros, says, Xr } from '@spare/logger'
+import { time }          from '@valjoux/timestamp-pretty'
+import { promises }      from 'fs'
+import prompts           from 'prompts'
+import { Summary }       from './Summary'
+import { bookNaming }    from './bookNaming'
+import { distinct }      from '@aryth/distinct-vector'
+import { parenth }       from '@texting/bracket'
 
 const SRC = process.cwd()
-says['livre'].attach(time)
-export const cli = async () => {
-  let live = true
-  let id = 0
-  while (live) {
-    ros(SRC) |> says['livre']
-    const ENTIRE_FILEINFOS = await subFileInfos(process.cwd())
-    const CANDIDATE_EXTS = [ ...new Set(ENTIRE_FILEINFOS.map(({ ext }) => ext)) ]
+const LIVRE = 'livre'
+says[LIVRE].attach(time)
 
-    const { value: SELECTED_EXTS } = await prompts({
-      type: 'multiselect',
-      name: 'value',
-      message: 'Select extend(s)',
-      choices: CANDIDATE_EXTS.map(value => ( { value } )),
-      hint: '- Space to select. Return to submit'
-    })
-    Xr()['selected extend'](SELECTED_EXTS) |> says['livre']
+export async function cli() {
+  ros(SRC) |> says[LIVRE]
+  let FILE_INFOS = await subFileInfos(process.cwd())
+  let EXTENSIONS = FILE_INFOS.map(({ ext }) => ext)|> distinct
+  const promptForExtension = await prompts({
+    type: 'multiselect',
+    name: 'value',
+    message: 'select extension',
+    choices: EXTENSIONS.map(extension => ({ value: extension }))
+  })
+  EXTENSIONS = promptForExtension.value
+  Xr()['selected extensions'](EXTENSIONS) |> says[LIVRE]
 
-    const CANDIDATE_FILEINFOS = ENTIRE_FILEINFOS.filter(x => SELECTED_EXTS.includes(x.ext))
-
-    const TALE = {
-      succeed: 0,
-      failure: 0,
-      unchanged: 0,
-      get total() { return this.succeed + this.failure + this.unchanged }
-    }
-    for (let { base, ext } of CANDIDATE_FILEINFOS) {
-      const target = bookNaming(base)
-      if (target === base) {
-        ++TALE.unchanged
-        ros(base) |> says['livre'].br('unchanged')
+  const summary = new Summary()
+  for (let { base: rawName, ext } of FILE_INFOS.filter(fileInfo => EXTENSIONS.includes(fileInfo.ext))) {
+    try {
+      const renamed = bookNaming(rawName) // introduce renaming function here
+      if (renamed === rawName) {
+        ros(rawName) |> says[LIVRE].br('unchanged')
+        summary.unchanged++
         continue
       }
-      const ready = await prompts({
+      const promptForConfirm = await prompts({
         type: 'confirm',
         name: 'value',
-        message: Xr().br(ros(base)).p('renamed to').br(says[base].render(target)).p('?'),
+        message: parenth(ros(rawName)) + ' => ' + parenth(says[rawName].render(renamed)),
         initial: true,
       })
-      if (ready.value) await promises
-        .rename(SRC + '/' + base + ext, SRC + '/' + target + ext)
-        .then(() => ++TALE.succeed)
-        .catch(e => console.error(++TALE.failure, e))
+      if (promptForConfirm.value) {
+        await promises.rename(SRC + '/' + rawName + ext, SRC + '/' + renamed + ext)
+        summary.succeed++
+      } else {
+        summary.unchanged++
+      }
+    } catch (e) {
+      summary.failure++
+      console.error(summary.failure, e)
     }
-    Xr()
-      ['total'](TALE.total)
-      ['succeed'](TALE.succeed)
-      ['failure'](TALE.failure)
-      ['unchanged'](TALE.unchanged)
-      |> says['livre']
-    RN |> logger
-    live = false
   }
+
+  summary.toString() |> says[LIVRE]
 }
 
 // cli().then()
