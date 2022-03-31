@@ -1,6 +1,6 @@
 {
   "name": "@livre/word-count",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Word count",
   "exports": {
     "import": "./dist/index.mjs",
@@ -17,8 +17,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@livre/enum-regexes": "^0.1.12",
-    "@livre/frequent-words": "^0.1.12"
+    "@livre/enum-regexes": "^0.1.13",
+    "@livre/frequent-words": "^0.1.13"
   },
   "devDependencies": {
     "@aryth/distinct-vector": "^0.4.9",
