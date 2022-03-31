@@ -1,6 +1,6 @@
+import { rename }             from '../src/alpha/rename.js'
 import { parsePath }          from '@acq/path'
 import { decoString, logger } from '@spare/logger'
-import { bookNaming }         from '../src/bookNaming.js'
 
 export const candidates = [
   'Best of Detail Fassaden Facades by Christian Schittich (z-lib.org).pdf',
@@ -17,5 +17,5 @@ export const candidates = [
 
 for (let candidate of candidates) {
   const o = parsePath(candidate)
-  logger(decoString(bookNaming(o.base)))
+  logger(decoString(rename(o.base)))
 }
