@@ -19,7 +19,8 @@
   "bin": "bin/bookNaming.js",
   "dependencies": {
     "@acq/path": "^0.3.11",
-    "@aryth/roman": "^0.3.26",
+    "@aryth/distinct-vector": "^0.4.9",
+    "@aryth/roman": "^0.4.9",
     "@spare/deco": "^0.13.2",
     "@spare/enum-chars": "^0.13.2",
     "@spare/logger": "^0.13.2",

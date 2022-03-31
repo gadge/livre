@@ -21,9 +21,9 @@
     "@livre/frequent-words": "^0.1.12"
   },
   "devDependencies": {
-    "@aryth/distinct-vector": "^0.3.26",
-    "@aryth/flopper": "^0.3.26",
-    "@aryth/subset": "^0.3.26",
+    "@aryth/distinct-vector": "^0.4.9",
+    "@aryth/flopper": "^0.4.9",
+    "@aryth/subset": "^0.4.9",
     "@geia/by": "^0.1.5",
     "@geia/cluster-institute": "^0.1.5",
     "@geia/enum-events": "^0.1.5",
