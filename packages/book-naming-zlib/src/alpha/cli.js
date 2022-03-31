@@ -4,8 +4,8 @@ import { RN }                    from '@spare/enum-chars'
 import { logger, ros, says, xr } from '@spare/logger'
 import { bracket, parenth }      from '@texting/bracket'
 import { time }                  from '@valjoux/timestamp-pretty'
-import { promises }              from 'fs'
-import { bookNaming }            from './bookNaming'
+import { promises } from 'fs'
+import { rename }   from './rename'
 
 const SRC = process.cwd()
 says['livre'].attach(time)
@@ -25,7 +25,7 @@ export const cli = async () => {
 
     const candidateFiles = entireFiles.filter(x => selectedExtends.includes(x.ext))
     for (let fileInfo of candidateFiles) {
-      fileInfo.to = fileInfo.base |> bookNaming
+      fileInfo.to = rename(fileInfo.base)
     }
     const selectedIDs = await checkbox({
       message: 'Select files to handle',
