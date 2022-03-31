@@ -3,8 +3,8 @@ import { Xr }         from '@spare/logger'
 import { time }       from '@valjoux/timestamp-pretty'
 import del            from 'del'
 import gulp           from 'gulp'
-import rename         from 'gulp-rename'
-import { bookNaming } from '../src/bookNaming'
+import rename     from 'gulp-rename'
+import { rename } from '../src/alpha/rename'
 
 const SRC = 'static/books'
 const DEST = 'static/books/target'
@@ -23,13 +23,13 @@ export const task = function () {
   return gulp
     .src(SRC + '/*.' + ext)
     .pipe(rename((path, file) => {
-      const newName = bookNaming(path.basename)
+      const newName = rename(path.basename)
       index++
       Xr(time()).br(path.basename) |> says['#'].br(index)
       Xr(time()).br(newName) |> says['#'].br(index)
       return {
         dirname: path.dirname,
-        basename: bookNaming(path.basename),
+        basename: rename(path.basename),
         extname: '.' + ext
       }
     }))

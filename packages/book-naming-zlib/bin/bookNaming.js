@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
-import { cli } from '../dist/index.cjs'
+require('../dist/index.cjs').cli().then()
 
-cli().then()
+// import { cli } from '../dist/index.cjs'
+//
+// cli().then()
