@@ -1,6 +1,6 @@
 {
   "name": "@livre/simplify-book-indice",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "frequent words",
   "exports": {
     "import": "./dist/index.mjs",
