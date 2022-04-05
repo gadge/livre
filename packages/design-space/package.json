@@ -48,7 +48,7 @@
     "baro": "^0.0.15",
     "ora": "^6.1.0",
     "prompts": "^2.4.2",
-    "puppeteer": "^13.5.1"
+    "puppeteer": "^13.5.2"
   },
   "devDependencies": {
     "@vect/object-mapper": "^0.4.10"

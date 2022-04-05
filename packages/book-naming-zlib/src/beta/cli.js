@@ -16,13 +16,13 @@ export async function cli() {
   ros(SRC) |> says[LIVRE]
   let FILE_INFOS = await subFileInfos(process.cwd())
   let EXTENSIONS = FILE_INFOS.map(({ ext }) => ext)|> distinct
-  const promptForExtension = await prompts({
+  const extensionPromptAnswer = await prompts({
     type: 'multiselect',
     name: 'value',
     message: 'select extension',
     choices: EXTENSIONS.map(extension => ({ value: extension }))
   })
-  EXTENSIONS = promptForExtension.value
+  EXTENSIONS = extensionPromptAnswer.value
   Xr()['selected extensions'](EXTENSIONS) |> says[LIVRE]
 
   const summary = new Summary()
@@ -34,13 +34,13 @@ export async function cli() {
         summary.unchanged++
         continue
       }
-      const promptForConfirm = await prompts({
+      const confirmPromptAnswer = await prompts({
         type: 'confirm',
         name: 'value',
         message: parenth(ros(rawName)) + ' =>\n  ' + parenth(says[rawName].render(renamed)),
         initial: true,
       })
-      if (promptForConfirm.value) {
+      if (confirmPromptAnswer.value) {
         await promises.rename(SRC + '/' + rawName + ext, SRC + '/' + renamed + ext)
         summary.succeed++
       } else {
