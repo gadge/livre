@@ -1,2 +1,2 @@
-export { bookNaming } from './src/bookNaming'
-export { cli }        from './src/cli'
+export { rename } from './src/rename'
+export { cli }    from './src/cli'

@@ -10,7 +10,7 @@ const processBookName = text => {
     .trim()
 }
 
-export const bookNaming = text => {
+export const rename = text => {
   let ms
   if (( ms = YYYY_MM_DD.exec(text) )) {
     const [ ph, yyyy, mm, dd ] = ms

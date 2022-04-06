@@ -1,7 +1,7 @@
 import { deco }                                        from '@spare/deco'
 import { says, Xr }                                    from '@spare/logger'
 import { DD_MONTH_YYYY, MONTH_MONTH_YYYY, MONTH_YYYY } from '../resources/date.regex'
-import { bookNaming }                                  from '../src/bookNaming'
+import { rename }                                      from '../src/rename'
 
 
 const candidates = [
@@ -60,7 +60,7 @@ const testBeta = () => {
 const test = () => {
   for (let text of candidates) {
     // Xr().original(text) |> says[te]
-    bookNaming(text) |>  says[text]
+    rename(text) |>  says[text]
   }
 }
 
