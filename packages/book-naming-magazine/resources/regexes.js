@@ -1,6 +1,6 @@
 const D2 = new RegExp(`(\\d{2})`)
 const D4 = new RegExp(`(\\d{4})`)
-const MONTHS = new RegExp(`(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*`)
+const MONTHS = new RegExp(`(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|D[eé]c|F[eé]v|Avr|Mai|Jui|Ao[uû]|Gen|Mag|Giu|Lug|Ago|Set|Ott|Dic)[a-z]*`)
 
 export const YYYY_MM_DD = new RegExp(`^${D4.source}\\W+${D2.source}\\W+${D2.source}`)
 export const YYYY_MM = new RegExp(`^${D4.source}\\W+${D2.source}`)
