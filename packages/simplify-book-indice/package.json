@@ -17,13 +17,13 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@aryth/roman": "^0.4.9",
-    "@spare/deco": "^0.13.2",
-    "@spare/enum-chars": "^0.13.2",
-    "@spare/tap": "^0.13.2",
+    "@aryth/roman": "^0.4.10",
+    "@spare/deco": "^0.13.3",
+    "@spare/enum-chars": "^0.13.3",
+    "@spare/tap": "^0.13.3",
     "@typen/nullish": "^0.1.17",
     "@typen/num-strict": "^0.1.17",
-    "@vect/vector-differentiator": "^0.4.10"
+    "@vect/vector-differentiator": "^0.5.3"
   },
   "repository": {
     "type": "git",

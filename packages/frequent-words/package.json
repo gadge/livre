@@ -17,8 +17,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@vect/vector-init": "^0.4.10",
-    "@vect/vector-merge": "^0.4.10"
+    "@vect/vector-init": "^0.5.3",
+    "@vect/vector-merge": "^0.5.3"
   },
   "repository": {
     "type": "git",

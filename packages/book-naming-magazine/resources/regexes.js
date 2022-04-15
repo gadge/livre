@@ -8,5 +8,5 @@ export const MONTH_YYYY_END = new RegExp(`\\W*${MONTHS.source}\\W*${D4.source}$`
 export const DD_MONTH_YYYY_END = new RegExp(`\\W*${D2.source}\\W*${MONTHS.source}\\W*${D4.source}$`)
 export const MONTH_MONTH_YYYY_END = new RegExp(`\\W*${MONTHS.source}\\W*${MONTHS.source}\\W*${D4.source}$`)
 
-export const START_NATIONS = /^(British|Hong Kong|Singapore|Malaysia|Philippines)\s+/
+export const START_NATIONS = /^(British|Hong Kong|Singapore|Malaysia|Philippines?)\s+/
 
