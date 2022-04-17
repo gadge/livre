@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "@aryth/roman": "^0.4.10",
-    "@spare/deco": "^0.13.3",
-    "@spare/enum-chars": "^0.13.3",
-    "@spare/tap": "^0.13.3",
+    "@spare/deco": "^0.13.4",
+    "@spare/enum-chars": "^0.13.4",
+    "@spare/tap": "^0.13.5",
     "@typen/nullish": "^0.1.17",
     "@typen/num-strict": "^0.1.17",
     "@vect/vector-differentiator": "^0.5.3"
