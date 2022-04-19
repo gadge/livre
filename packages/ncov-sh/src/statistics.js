@@ -140,16 +140,17 @@ export const statistics = async () => {
 
   for (let file of files) {
     const fileInfo = parsePath(SRC + '/' + file)
-    const fileDate = new Date(fileInfo.base.slice(0, 10))
+    const dateStamp = fileInfo.base.slice(0, 10)
     const content = await promises.readFile(SRC + '/' + file)
     // const log = file === '2022-03-07.beta'
     const log = false
-    const [ channel, shanghai ] = file.includes('beta')
-      ? [ 'beta', await ShanghaiStatistics.processBeta(content, log) ]
-      : [ 'alpha', await ShanghaiStatistics.processAlpha(content) ]
-    Xr()[date(fileDate)](shanghai.report() |> Deco({ vert: 1 }))  |> says[NCOV].p(channel)
-    tables.diagn.pushRow([ file, ...Object.values(shanghai.reportDiagn()) ])
-    tables.asymp.pushRow([ file, ...Object.values(shanghai.reportAsymp()) ])
+    const [ channel, shanghai ] = !file.includes('beta')
+      ? [ 'alpha', await ShanghaiStatistics.processAlpha(content, log) ]
+      : [ 'beta', await ShanghaiStatistics.processBeta(content, log) ]
+    Xr()[date(new Date(dateStamp))](shanghai.report() |> Deco({ vert: 1 }))  |> says[NCOV].p(channel)
+    if (tables.diagn.rows.some(row => row[0] === dateStamp)) continue
+    tables.diagn.pushRow([ dateStamp, ...Object.values(shanghai.reportDiagn()) ])
+    tables.asymp.pushRow([ dateStamp, ...Object.values(shanghai.reportAsymp()) ])
   }
   await promises.writeFile(DEST + '/diagn.csv', Csv.table(tables.diagn))
   await promises.writeFile(DEST + '/asymp.csv', Csv.table(tables.asymp))
