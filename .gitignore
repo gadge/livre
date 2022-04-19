@@ -1,4 +1,5 @@
 .idea
+output/*
 temp
 node_modules
 static/books
