@@ -30,10 +30,10 @@
     "@geia/enum-roles": "^0.1.5",
     "@geia/signaler": "^0.1.5",
     "@valjoux/linger": "^0.3.10",
-    "@vect/matrix": "^0.5.3",
-    "@vect/swap": "^0.5.3",
-    "@vect/vector": "^0.5.3",
-    "@vect/vector-init": "^0.5.3"
+    "@vect/matrix": "^0.5.4",
+    "@vect/swap": "^0.5.4",
+    "@vect/vector": "^0.5.4",
+    "@vect/vector-init": "^0.5.4"
   },
   "repository": {
     "type": "git",
