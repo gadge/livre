@@ -1,6 +1,6 @@
 {
   "name": "@livre/ncov-sh",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Word count",
   "exports": {
     "import": "./dist/index.mjs",
