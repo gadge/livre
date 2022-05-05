@@ -17,12 +17,12 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@acq/path": "^0.3.11",
-    "@analys/table": "^0.5.7",
-    "@spare/csv": "^0.13.5",
-    "@spare/deco-date": "^0.13.5",
-    "@vect/object-select": "^0.5.4",
-    "puppeteer": "^13.6.0"
+    "@acq/path": "^0.3.13",
+    "@analys/table": "^0.6.2",
+    "@spare/csv": "^0.13.16",
+    "@spare/deco-date": "^0.13.16",
+    "@vect/object-select": "^0.5.23",
+    "puppeteer": "^13.7.0"
   },
   "repository": {
     "type": "git",

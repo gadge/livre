@@ -1,4 +1,5 @@
-import { Xr } from '@spare/logger'
+import { x }       from '@spare/xr'
+import { DecoFab } from './DecoFab'
 
 export class Summary {
   succeed = 0
@@ -7,10 +8,11 @@ export class Summary {
   constructor() {}
   get total() { return this.succeed + this.failure + this.unchanged }
   toString() {
-    return Xr()
-      ['total'](this.total)
-      ['succeed'](this.succeed)
-      ['failure'](this.failure)
-      ['unchanged'](this.unchanged)
+    const deco = DecoFab.next()
+    return x
+      [deco('total')](this.total)
+      [deco('succeed')](this.succeed)
+      [deco('failure')](this.failure)
+      [deco('unchanged')](this.unchanged).toString()
   }
 }

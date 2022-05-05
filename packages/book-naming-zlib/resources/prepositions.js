@@ -65,7 +65,7 @@ export const ARTICLES = [
   'the',
 ]
 
-export const PREPOSITION_REPLACE_DICT = makeReplaceable(
+export const PREP_DICT = makeReplaceable(
   [...PREPOSITONS, ...CONJUNCTIONS, ...ARTICLES]
     .map(word => [new RegExp(`\\b${word}\\b`, 'gi'), word])
 )

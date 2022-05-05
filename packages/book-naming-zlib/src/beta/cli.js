@@ -1,49 +1,49 @@
-import { subFileInfos }  from '@acq/path'
-import { ros, says, Xr } from '@spare/logger'
-import { time }          from '@valjoux/timestamp-pretty'
-import { promises }      from 'fs'
-import prompts           from 'prompts'
-import { Summary }       from './Summary'
-import { distinct }      from '@aryth/distinct-vector'
-import { parenth }       from '@texting/bracket'
-import { rename }        from './rename.beta'
+import { subFileInfos } from '@acq/path'
+import { distinct }     from '@aryth/distinct-vector'
+import { $, says }      from '@spare/xr'
+import { time }         from '@valjoux/timestamp-pretty'
+import { promises }     from 'fs'
+import prompts          from 'prompts'
+import { DecoFab }      from './DecoFab'
+import { rename }       from './rename.beta'
+import { Summary }      from './Summary'
 
 const SRC = process.cwd()
-const LIVRE = 'livre'
-says[LIVRE].attach(time)
+const LIVRE = 'Livre'
+const CLASS = 'BookNaming'
+says.attach(time)
 
 export async function cli() {
-  ros(SRC) |> says[LIVRE]
+  $.source(SRC) |> says[LIVRE].br(CLASS)
   let FILE_INFOS = await subFileInfos(process.cwd())
-  let EXTENSIONS = FILE_INFOS.map(({ ext }) => ext)|> distinct
-  const extensionPromptAnswer = await prompts({
+  const { extensions } = await prompts({
     type: 'multiselect',
-    name: 'value',
+    name: 'extensions',
     message: 'select extension',
-    choices: EXTENSIONS.map(extension => ({ value: extension }))
+    choices: (FILE_INFOS.map(({ ext }) => ext)|> distinct).map(value => ({ value }))
   })
-  EXTENSIONS = extensionPromptAnswer.value
-  Xr()['selected extensions'](EXTENSIONS) |> says[LIVRE]
+  $.extensions(extensions) |> says[LIVRE].br(CLASS)
 
   const summary = new Summary()
-  for (let { base: rawName, ext } of FILE_INFOS.filter(fileInfo => EXTENSIONS.includes(fileInfo.ext))) {
+  for (let { base, ext } of FILE_INFOS.filter(({ ext }) => extensions.includes(ext))) {
     try {
-      const renamed = rename(rawName) // introduce renaming function here
-      if (renamed === rawName) {
-        ros(rawName) |> says[LIVRE].br('unchanged')
+      const deco = DecoFab.next(), next = rename(base) // introduce renaming function here
+      if (next === base) {
+        deco(base) |> says[LIVRE].br(CLASS).br('unchanged')
         summary.unchanged++
         continue
       }
-      const confirmPromptAnswer = await prompts({
+      const { confirm } = await prompts({
         type: 'confirm',
-        name: 'value',
-        message: parenth(ros(rawName)) + ' =>\n  ' + parenth(says[rawName].render(renamed)),
+        name: 'confirm',
+        message: `[${deco(base)}] =>\n  [${deco(next)}]`,
         initial: true,
       })
-      if (confirmPromptAnswer.value) {
-        await promises.rename(SRC + '/' + rawName + ext, SRC + '/' + renamed + ext)
+      if (confirm) {
+        await promises.rename(SRC + '/' + base + ext, SRC + '/' + next + ext)
         summary.succeed++
-      } else {
+      }
+      else {
         summary.unchanged++
       }
     } catch (e) {
@@ -52,7 +52,5 @@ export async function cli() {
     }
   }
 
-  summary.toString() |> says[LIVRE]
+  $.summary(summary.toString()) |> says[LIVRE].br(CLASS)
 }
-
-// cli().then()
