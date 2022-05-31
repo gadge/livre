@@ -1,4 +1,4 @@
-import { x }       from '@spare/xr'
+import { $ }       from '@spare/xr'
 import { DecoFab } from './DecoFab'
 
 export class Summary {
@@ -9,10 +9,10 @@ export class Summary {
   get total() { return this.succeed + this.failure + this.unchanged }
   toString() {
     const deco = DecoFab.next()
-    return x
-      [deco('total')](this.total)
-      [deco('succeed')](this.succeed)
-      [deco('failure')](this.failure)
-      [deco('unchanged')](this.unchanged).toString()
+    return $
+      ['total'](this.total)
+      ['succeed'](this.succeed)
+      ['failure'](this.failure)
+      ['unchanged'](this.unchanged).toString()
   }
 }
