@@ -1,6 +1,6 @@
 {
   "name": "@livre/word-count",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Word count",
   "exports": {
     "import": "./dist/index.mjs",
@@ -17,8 +17,8 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@livre/enum-regexes": "^0.2.5",
-    "@livre/frequent-words": "^0.2.5"
+    "@livre/enum-regexes": "^0.2.6",
+    "@livre/frequent-words": "^0.2.6"
   },
   "devDependencies": {
     "@aryth/distinct-vector": "^0.5.10",
@@ -49,5 +49,6 @@
   "bugs": {
     "url": "https://github.com/hoyeungw/livre"
   },
-  "homepage": "https://github.com/hoyeungw/livre#readme"
+  "homepage": "https://github.com/hoyeungw/livre#readme",
+  "gitHead": "d28f6ddda0e7338b6cf3f3bef2e1dec1b5352b5d"
 }

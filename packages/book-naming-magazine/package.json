@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-magazine",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "rename book from zlib",
   "exports": {
     "import": "./dist/index.mjs",
@@ -46,5 +46,6 @@
   "bugs": {
     "url": "https://github.com/hoyeungw/livre"
   },
-  "homepage": "https://github.com/hoyeungw/livre#readme"
+  "homepage": "https://github.com/hoyeungw/livre#readme",
+  "gitHead": "d28f6ddda0e7338b6cf3f3bef2e1dec1b5352b5d"
 }
