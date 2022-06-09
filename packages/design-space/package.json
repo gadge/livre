@@ -1,6 +1,6 @@
 {
   "name": "@livre/design-space",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "download design images",
   "exports": {
     "import": "./dist/index.mjs",

@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-magazine",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "rename book from zlib",
   "exports": {
     "import": "./dist/index.mjs",
