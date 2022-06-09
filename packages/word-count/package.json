@@ -21,19 +21,19 @@
     "@livre/frequent-words": "^0.2.6"
   },
   "devDependencies": {
-    "@aryth/distinct-vector": "^0.5.10",
-    "@aryth/flopper": "^0.5.10",
-    "@aryth/subset": "^0.5.10",
+    "@aryth/distinct-vector": "^0.6.1",
+    "@aryth/flopper": "^0.6.1",
+    "@aryth/subset": "^0.6.1",
     "@geia/by": "^0.1.5",
     "@geia/cluster-institute": "^0.1.5",
     "@geia/enum-events": "^0.1.5",
     "@geia/enum-roles": "^0.1.5",
     "@geia/signaler": "^0.1.5",
-    "@valjoux/linger": "^0.3.13",
-    "@vect/matrix": "^0.7.11",
+    "@valjoux/linger": "^0.3.17",
+    "@vect/matrix": "^0.7.14",
     "@vect/swap": "^0.6.13",
-    "@vect/vector": "^0.7.11",
-    "@vect/vector-init": "^0.7.11"
+    "@vect/vector": "^0.7.14",
+    "@vect/vector-init": "^0.7.14"
   },
   "repository": {
     "type": "git",
