@@ -3,5 +3,9 @@ import { DecoString }    from '@spare/logger'
 
 export class DecoFab {
   static flopper = presetFlopper(false)
-  static next() { return DecoString({ presets: DecoFab.flopper.next().value }) }
+
+  static next() {
+    const { value } = DecoFab.flopper.next()
+    return DecoString({ pres: { str: value, num: value } })
+  }
 }

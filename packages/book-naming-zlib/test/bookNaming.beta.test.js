@@ -1,6 +1,6 @@
-import { deco, decoString, logger } from '@spare/logger'
-import { FRESH }                    from '@palett/presets'
-import { rename }                   from '../src/beta/rename.beta'
+import { FRESH, METRO, PAGODA, SUBTLE } from '@palett/presets'
+import { DecoString }                   from '@spare/logger'
+import { rename }                       from '../src/beta/rename.beta'
 
 export const CANDIDATES = [
   'Aesthetic Labour Rethinking Beauty Politics in Neoliberalism (Ana Sofia Elias, Rosalind Gill etc.) (z-lib.org).pdf',
@@ -34,10 +34,13 @@ export const CANDIDATES = [
   'Time in Fashion Industrial, Antilinear and Uchronic Temporalities (Caroline Evans (editor) etc.) (z-lib.org).pdf',
 ]
 
+const decoString = DecoString({ pres: { str: PAGODA, num: SUBTLE } })
 const test = () => {
   for (let candidate of CANDIDATES) {
-    const output = candidate |> rename;
-    [decoString(candidate), decoString(output, { presets: FRESH })]  |> deco  |> logger
+    const output = candidate |> rename
+    // decoString(candidate) |> console.log
+    decoString(output, 0) |> console.log
+    // [ decoString(candidate), decoString(output, { pres: { str: FRESH, num: FRESH } }) ]  |> deco  |> logger
   }
 }
 

@@ -13,9 +13,9 @@ const LIVRE = 'Livre'
 const CLASS = 'BookNaming'
 says.attach(time)
 
-export async function cli() {
-  $.source(SRC) |> says[LIVRE].br(CLASS)
-  let FILE_INFOS = await subFileInfos(process.cwd())
+export async function cli(folder = SRC) {
+  $.source(folder) |> says[LIVRE].br(CLASS)
+  let FILE_INFOS = await subFileInfos(folder)
   const { extensions } = await prompts({
     type: 'multiselect',
     name: 'extensions',
@@ -40,7 +40,7 @@ export async function cli() {
         initial: true,
       })
       if (confirm) {
-        await promises.rename(SRC + '/' + base + ext, SRC + '/' + next + ext)
+        await promises.rename(folder + '/' + base + ext, folder + '/' + next + ext)
         summary.succeed++
       }
       else {

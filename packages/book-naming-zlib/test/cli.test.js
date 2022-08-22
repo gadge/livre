@@ -1,3 +1,3 @@
 import { cli } from '../src/beta/cli'
 
-cli().then()
+cli('/home/alkindus/Downloads').then()
