@@ -1,6 +1,6 @@
 {
   "name": "@livre/frequent-words",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "frequent words",
   "exports": {
     "import": "./dist/index.mjs",
