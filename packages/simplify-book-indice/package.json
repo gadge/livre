@@ -1,6 +1,6 @@
 {
   "name": "@livre/simplify-book-indice",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "frequent words",
   "exports": {
     "import": "./dist/index.mjs",
@@ -17,10 +17,10 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@aryth/roman": "^0.6.8",
-    "@spare/deco": "^0.15.15",
-    "@spare/enum-chars": "^0.15.15",
-    "@spare/tap": "^0.15.15",
+    "@aryth/roman": "^0.6.9",
+    "@spare/deco": "^0.15.16",
+    "@spare/enum-chars": "^0.15.16",
+    "@spare/tap": "^0.15.16",
     "@typen/nullish": "^0.1.19",
     "@typen/num-strict": "^0.1.19",
     "@vect/vector-differentiator": "^0.6.13"

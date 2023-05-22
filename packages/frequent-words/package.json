@@ -1,6 +1,6 @@
 {
   "name": "@livre/frequent-words",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "frequent words",
   "exports": {
     "import": "./dist/index.mjs",
@@ -17,7 +17,7 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@vect/vector-init": "^0.7.18",
+    "@vect/vector-init": "^0.7.20",
     "@vect/vector-merge": "^0.6.13"
   },
   "repository": {

@@ -1,6 +1,6 @@
 {
   "name": "@livre/word-count",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "Word count",
   "exports": {
     "import": "./dist/index.mjs",
@@ -17,23 +17,23 @@
     "test": "node -r @babel/register test/test.index.js"
   },
   "dependencies": {
-    "@livre/enum-regexes": "^0.2.10",
-    "@livre/frequent-words": "^0.2.10"
+    "@livre/enum-regexes": "^0.2.11",
+    "@livre/frequent-words": "^0.2.11"
   },
   "devDependencies": {
-    "@aryth/distinct-vector": "^0.6.8",
-    "@aryth/flopper": "^0.6.8",
-    "@aryth/subset": "^0.6.8",
+    "@aryth/distinct-vector": "^0.6.9",
+    "@aryth/flopper": "^0.6.9",
+    "@aryth/subset": "^0.6.9",
     "@geia/by": "^0.1.5",
     "@geia/cluster-institute": "^0.1.5",
     "@geia/enum-events": "^0.1.5",
     "@geia/enum-roles": "^0.1.5",
     "@geia/signaler": "^0.1.5",
     "@valjoux/linger": "^0.3.21",
-    "@vect/matrix": "^0.7.18",
+    "@vect/matrix": "^0.7.20",
     "@vect/swap": "^0.6.13",
-    "@vect/vector": "^0.7.18",
-    "@vect/vector-init": "^0.7.18"
+    "@vect/vector": "^0.7.20",
+    "@vect/vector-init": "^0.7.20"
   },
   "repository": {
     "type": "git",

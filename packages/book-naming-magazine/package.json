@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-magazine",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "rename book from zlib",
   "exports": {
     "import": "./dist/index.mjs",
@@ -19,12 +19,12 @@
   "bin": "bin/bookNaming.js",
   "dependencies": {
     "@acq/path": "^0.3.18",
-    "@aryth/distinct-vector": "^0.6.8",
-    "@aryth/roman": "^0.6.8",
-    "@spare/deco": "^0.15.15",
-    "@spare/enum-chars": "^0.15.15",
-    "@spare/logger": "^0.15.15",
-    "@spare/tap": "^0.15.15",
+    "@aryth/distinct-vector": "^0.6.9",
+    "@aryth/roman": "^0.6.9",
+    "@spare/deco": "^0.15.16",
+    "@spare/enum-chars": "^0.15.16",
+    "@spare/logger": "^0.15.16",
+    "@spare/tap": "^0.15.16",
     "@texting/bracket": "^0.1.13",
     "@texting/sep": "^0.1.13",
     "@typen/nullish": "^0.1.19",
