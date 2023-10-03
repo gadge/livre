@@ -1,59 +1,61 @@
-import { subFileInfos }  from '@acq/path'
-import { distinct }      from '@aryth/distinct-vector'
+import { subFileInfos } from '@acq/path'
+import { distinct } from '@aryth/distinct-vector'
 import { ros, says, Xr } from '@spare/logger'
-import { parenth }       from '@texting/bracket'
-import { time }          from '@valjoux/timestamp-pretty'
-import { promises }      from 'fs'
-import prompts           from 'prompts'
-import { rename }        from './rename'
-import { Summary }       from './Summary'
+import { parenth } from '@texting/bracket'
+import { time } from '@valjoux/timestamp-pretty'
+import { promises } from 'fs'
+import prompts from 'prompts'
+import { rename } from './rename'
+import { Summary } from './Summary'
+import { $ } from "@spare/xr";
 
 const SRC = process.cwd()
 const LIVRE = 'livre'
+const CLASS = 'BookNaming'
 says[LIVRE].attach(time)
 
-export async function cli() {
-  ros(SRC) |> says[LIVRE]
-  let FILE_INFOS = await subFileInfos(process.cwd())
-  let EXTENSIONS = FILE_INFOS.map(({ ext }) => ext)|> distinct
-  const extensionPromptAnswer = await prompts({
+export async function cli(folder = SRC) {
+  $.source(folder) |> says[LIVRE].br(CLASS)
+  ros(folder) |> says[LIVRE]
+  const FILE_INFOS = await subFileInfos(folder);
+  const RAW_EXTENSIONS = FILE_INFOS.map(({ ext }) => ext)|> distinct;
+  const EXTENSIONS_ANSWER = await prompts({
     type: 'multiselect',
     name: 'value',
     message: 'select extension',
-    choices: EXTENSIONS.map(extension => ({ value: extension }))
+    choices: RAW_EXTENSIONS.map(extension => ({ value: extension }))
   })
-  EXTENSIONS = extensionPromptAnswer.value
-  Xr()['selected extensions'](EXTENSIONS) |> says[LIVRE]
+  const SELECTED_EXTENSIONS = EXTENSIONS_ANSWER.value
+  Xr()['selected extensions'](SELECTED_EXTENSIONS) |> says[LIVRE]
 
-  const summary = new Summary()
-  for (let { base: rawName, ext } of FILE_INFOS.filter(fileInfo => EXTENSIONS.includes(fileInfo.ext))) {
+  const SUMMARY = new Summary()
+  for (let { base, ext } of FILE_INFOS.filter(fileInfo => SELECTED_EXTENSIONS.includes(fileInfo.ext))) {
     try {
-      const renamed = rename(rawName) // introduce renaming function here
-      if (renamed === rawName) {
-        ros(rawName) |> says[LIVRE].br('unchanged')
-        summary.unchanged++
+      const renamed = rename(base) // introduce renaming function here
+      if (renamed === base) {
+        ros(base) |> says[LIVRE].br('unchanged')
+        SUMMARY.unchanged++
         continue
       }
-      const confirmPromptAnswer = await prompts({
+      const USER_CONFIRM_ANSWER = await prompts({
         type: 'confirm',
         name: 'value',
-        message: parenth(ros(rawName)) + ' => ' + parenth(says[rawName].render(renamed)),
+        message: parenth(ros(base)) + ' => ' + parenth(says[base].render(renamed)),
         initial: true,
       })
-      if (confirmPromptAnswer.value) {
-        await promises.rename(SRC + '/' + rawName + ext, SRC + '/' + renamed + ext)
-        summary.succeed++
-      }
-      else {
-        summary.unchanged++
+      if (USER_CONFIRM_ANSWER.value) {
+        await promises.rename(folder + '/' + base + ext, folder + '/' + renamed + ext)
+        SUMMARY.succeed++
+      } else {
+        SUMMARY.unchanged++
       }
     } catch (e) {
-      summary.failure++
-      console.error(summary.failure, e)
+      SUMMARY.failure++
+      console.error(SUMMARY.failure, e)
     }
   }
 
-  summary.toString() |> says[LIVRE]
+  SUMMARY.toString() |> says[LIVRE]
 }
 
 // cli().then()

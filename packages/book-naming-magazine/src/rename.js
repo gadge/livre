@@ -1,14 +1,17 @@
 import { SP } from '@spare/enum-chars'
+import { LEX_BRANDS, LEX_GENERIC, LEX_LOCATIONS, LEX_MONTHS } from '../resources/dictionaries'
 import {
-  LEX_BRANDS, LEX_GENERIC, LEX_LOCATIONS, LEX_MONTHS
-}             from '../resources/dictionaries'
-import {
-  DD_MONTH_YYYY_END, MONTH_MONTH_YYYY_END, MONTH_YYYY_END, START_NATIONS, START_YYYY_MM_DD
-}             from '../resources/regexes'
+  DD_MONTH_YYYY_END,
+  MONTH_MONTH_YYYY_END,
+  MONTH_YYYY_END,
+  START_NATIONS,
+  START_YYYY_MM_DD
+} from '../resources/regexes'
 
 
 export function rename(text) {
   let ms
+
   function putBack(text, regex) {
     let matches, phrase, body
     if ((matches = regex.exec(text)) && ([ phrase, body ] = matches)) {
@@ -19,6 +22,7 @@ export function rename(text) {
     }
     return text
   }
+
   function renameBook(text,) {
     text = putBack(text, START_NATIONS)
     return text
@@ -27,6 +31,9 @@ export function rename(text) {
       .replace(LEX_LOCATIONS)
       .trim()
   }
+
+  text = text.replace(/_+/g, ' ')
+
   if ((ms = START_YYYY_MM_DD.exec(text))) {
     const [ ph, yyyy, mm, dd ] = ms
     const title = text.slice(ph.length)
