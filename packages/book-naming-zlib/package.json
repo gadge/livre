@@ -1,6 +1,6 @@
 {
   "name": "@livre/book-naming-zlib",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "rename book from zlib",
   "exports": {
     "import": "./dist/index.mjs",
@@ -18,10 +18,10 @@
   },
   "bin": "./bin/bookNaming.js",
   "dependencies": {
-    "@acq/path": "^0.3.18",
+    "@acq/path": "^0.3.31",
     "@aryth/distinct-vector": "^0.6.9",
     "@aryth/roman": "^0.6.9",
-    "@inquirer/checkbox": "^1.2.8",
+    "@inquirer/checkbox": "^2.0.0",
     "@palett/flopper": "^0.11.6",
     "@palett/presets": "^0.11.6",
     "@spare/deco": "^0.15.16",
