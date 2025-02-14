@@ -16,7 +16,7 @@ movie-naming/*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-yarn.lock
+# yarn.lock
 yarn-error.log
 dezeen
 

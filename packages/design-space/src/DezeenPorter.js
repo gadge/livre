@@ -13,11 +13,12 @@ import { Baro, CHARSET_SHADE, Spin }              from 'baro'
 import { promises }                               from 'fs'
 import { CONTENT_TYPE, LIVRE }                    from '../resources/constants'
 import { DICT_DEZEEN_FOLDER, DICT_DEZEEN_REVIVE } from '../resources/namingCollection'
+import { readYear }                               from './reader'
 
 const REG_INDEX = /(?<=dezeen_\d+_col_)(\d+)(?=.jpg)/
 const dezeenUrlToIndex = (url) => {
   let ms, ph
-  return ( ms = REG_INDEX.exec(url) ) && ( [ ph ] = ms ) ? +ph : 0
+  return (ms = REG_INDEX.exec(url)) && ([ ph ] = ms) ? +ph : 0
 }
 
 const projectorFactory = ProjectorFactory.fromHEX({ min: 0, max: 2 << 20 }, FRESH)
@@ -25,7 +26,7 @@ export const DEZEEN_BARO_CONFIG = {
   autoClear: false,
   hideCursor: true,
   stream: process.stdout,
-  fps: 8,
+  fps: 8
 }
 export const DEZEEN_BARO_LAYOUT = {
   char: CHARSET_SHADE,
@@ -39,9 +40,9 @@ export const DEZEEN_BARO_LAYOUT = {
     const { timestamp, agent, path, url, stage, stageStamp } = notation
     const dye = projectorFactory.make(notation.value)
     const bar =
-            stage === 'saved' ? `${this.fullBar}`
-              : stage === 'error' ? `${this.zeroBar}` :
-                `${this.bar(notation)}`
+      stage === 'saved' ? `${this.fullBar}`
+        : stage === 'error' ? `${this.zeroBar}` :
+          `${this.bar(notation)}`
     return `${timestamp} [${ros(agent)}] ${dye(stageStamp + ' ' + bar)} | ${humanScale(notation.value)} | ${path ?? url}`
   }
 }
@@ -50,7 +51,7 @@ export const DEZEEN_REQUEST_HEADERS = {
   'accept': 'image/webp,image/apng,image/jpeg',
   'accept-encoding': 'gzip, deflate, br',
   'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,fr;q=0.6',
-  'user-agent': 'Mozilla/5.0 Chrome/96.0.4664.45 Safari/537.36',
+  'user-agent': 'Mozilla/5.0 Chrome/96.0.4664.45 Safari/537.36'
 }
 
 export class DezeenPorter {
@@ -88,8 +89,7 @@ export class DezeenPorter {
     if (this.origins?.length <= 0) {
       if (this.log) Xr().file('empty url collection') |> says[LIVRE].p('>> error')
       return this
-    }
-    else {
+    } else {
       // if (this.log) this.originToRevives |> decoEntries |> says[LIVRE].p('>> saving')
     }
 
@@ -110,8 +110,10 @@ export class DezeenPorter {
     // save spreads
     {
       await promises.mkdir(this.src + '/spread', { recursive: true })
-      const dest = this.src + '/spread/' + this.folder + '.spread.txt'
+      const dest = this.src + '/spread/' + this.folder + '.txt'
       await promises.writeFile(dest, this.spreads.join(LF))
+      const year = readYear(this.spreads)
+      await promises.mkdir(this.src + '/spread/' + this.folder + '-' + year, { recursive: true })
       if (this.log) Xr().file(ros(dest)) |> says[LIVRE].p('>> saved')
     }
     return this
@@ -151,7 +153,7 @@ export class DezeenPorter {
     const REG = /(?<=\/)[\w\d-]+(?=[_-]+dezeen_\d+_col_\d+)/
     const url = urls.find(x => REG.test(x)) ?? urls[0]
     let ms, title
-    if (( ms = url.match(REG) ) && ( [ title ] = ms )) {
+    if ((ms = url.match(REG)) && ([ title ] = ms)) {
       return title
     }
     return url.replace(DICT_DEZEEN_FOLDER, x => x.trim())
@@ -160,7 +162,7 @@ export class DezeenPorter {
   makeImagePath(url, headers) {
     let { dir, base, ext } = parsePath(url)
     let ms, ph
-    if (( ms = headers[CONTENT_TYPE].match(/(?<=image\/)\w+/) ) && ( [ ph ] = ms )) { ext = '.' + ph } // 'image/webp'
+    if ((ms = headers[CONTENT_TYPE].match(/(?<=image\/)\w+/)) && ([ ph ] = ms)) { ext = '.' + ph } // 'image/webp'
     return `${this.src}/image/${this.folder}/${base}${ext}`
   }
 }
